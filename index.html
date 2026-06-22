@@ -1,551 +1,221 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- ════════════════════════════════════════════════════════════════════
-     EDITE AQUI: título da aba e descrição do site
-     ════════════════════════════════════════════════════════════════════ -->
-<title>Vinicius — Designer & Educador</title>h
-<meta name="description" content="Designer e professor. Design editorial, identidade visual e direção de arte. Maringá, Paraná.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Basic+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --ink:#000000;          /* fundo: preto quente */
-    --ink-2:#0a0a0a;        /* superfície elevada  */
-    --bone:#39FF14;         /* texto: branco-papel */
-    --bone-dim:#22cc00;     /* texto secundário    */
-    --gold:#39FF14;         /* acento dourado      */
-    --gold-soft:#2be010;
-    --line:rgba(57,255,20,0.15);
-    --line-2:rgba(57,255,20,0.25);
-    --maxw:1280px;
-    --pad:clamp(1.25rem,5vw,4.5rem);
-    --font-display:'Basic Sans',sans-serif;
-    --font-body:'Basic Sans',sans-serif;
-    --font-mono:'Basic Sans',sans-serif;
-  }
-
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-
-  body{
-    background:var(--ink);
-    color:var(--bone);
-    font-family:var(--font-body);
-    font-size:clamp(1rem,0.95rem + 0.2vw,1.1rem);
-    line-height:1.65;
-    font-weight:400;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  /* grão sutil de papel impresso */
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  a{color:inherit;text-decoration:none}
-  ::selection{background:var(--gold);color:var(--ink)}
-  :focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
-
-  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
-
-  .eyebrow{
-    font-family:var(--font-mono);font-size:.72rem;font-weight:500;
-    letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
-  }
-  .eyebrow .num{color:var(--bone-dim);margin-right:.9em}
-
-  /* ── NAV ──────────────────────────────────────────────── */
-  header.nav{
-    position:fixed;top:0;left:0;width:100%;z-index:100;
-    transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease;
-    border-bottom:1px solid transparent;
-  }
-  header.nav.scrolled{
-    background:rgba(20,17,13,.72);backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    max-width:var(--maxw);margin:0 auto;padding:1.15rem var(--pad);
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .mark{
-    font-family:var(--font-display);font-size:1.35rem;font-weight:500;
-    letter-spacing:-.01em;font-variation-settings:"opsz" 40,"SOFT" 0,"WONK" 0;
-  }
-  .mark span{color:var(--gold)}
-  .nav-links{display:flex;gap:2.1rem;align-items:center}
-  .nav-links a{
-    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;
-    color:var(--bone-dim);transition:color .25s ease;position:relative;
-    text-transform:uppercase;
-  }
-  .nav-links a::after{
-    content:"";position:absolute;left:0;bottom:-5px;height:1px;width:0;
-    background:var(--gold);transition:width .3s ease;
-  }
-  .nav-links a:hover,.nav-links a.active{color:var(--bone)}
-  .nav-links a.active::after{width:100%}
-
-  .nav-toggle{
-    display:none;background:none;border:none;color:var(--bone);
-    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;
-    text-transform:uppercase;cursor:pointer;padding:.4rem;
-  }
-
-  /* menu mobile */
-  .mobile-menu{
-    position:fixed;inset:0;z-index:99;background:var(--ink);
-    display:flex;flex-direction:column;justify-content:center;gap:1.5rem;
-    padding:var(--pad);transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1);
-  }
-  .mobile-menu.open{transform:translateY(0)}
-  .mobile-menu a{
-    font-family:var(--font-display);font-size:clamp(2.2rem,11vw,3.5rem);
-    font-weight:400;font-variation-settings:"opsz" 90;line-height:1;
-    display:flex;align-items:baseline;gap:1rem;
-  }
-  .mobile-menu a .mnum{font-family:var(--font-mono);font-size:.9rem;color:var(--gold)}
-
-  /* ── HERO ─────────────────────────────────────────────── */
-  .hero{
-    min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-    position:relative;padding-block:8rem 3rem;
-  }
-  .hero .wrap{width:100%}
-  .hero-eyebrow{margin-bottom:clamp(1.5rem,4vh,2.5rem)}
-
-  .masthead{
-    font-family:var(--font-display);font-weight:400;
-    font-size:clamp(4.2rem,20vw,17rem);line-height:.86;letter-spacing:-.03em;
-    font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 0,"WONK" 0;
-    transition:font-variation-settings .6s cubic-bezier(.3,0,.2,1);
-    margin-left:-.04em;cursor:default;
-  }
-  .masthead:hover{font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 60,"WONK" 0}
-
-  .thesis{
-    font-family:var(--font-display);font-style:italic;font-weight:300;
-    font-variation-settings:"opsz" 50,"SOFT" 30;
-    font-size:clamp(1.25rem,2.4vw,1.9rem);line-height:1.4;color:var(--bone);
-    max-width:30ch;margin-top:clamp(1.8rem,4vh,2.8rem);
-  }
-  .thesis em{color:var(--gold);font-style:italic}
-
-  .hero-foot{
-    display:flex;flex-wrap:wrap;gap:1.5rem 2.5rem;align-items:center;
-    margin-top:clamp(2.5rem,7vh,4.5rem);
-  }
-  .status{
-    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;
-    display:inline-flex;align-items:center;gap:.6rem;color:var(--bone-dim);
-  }
-  .dot{
-    width:8px;height:8px;border-radius:50%;background:var(--gold);
-    box-shadow:0 0 0 0 rgba(224,169,79,.6);animation:pulse 2.6s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(224,169,79,.5)}
-    70%{box-shadow:0 0 0 9px rgba(224,169,79,0)}
-    100%{box-shadow:0 0 0 0 rgba(224,169,79,0)}
-  }
-  .scroll-cue{
-    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--bone-dim);display:inline-flex;
-    align-items:center;gap:.7rem;
-  }
-  .scroll-cue .line{width:46px;height:1px;background:var(--line-2);position:relative;overflow:hidden}
-  .scroll-cue .line::after{content:"";position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);animation:slide 2.4s ease-in-out infinite}
-  @keyframes slide{0%{transform:translateX(-100%)}50%{transform:translateX(100%)}100%{transform:translateX(100%)}}
-
-  /* folio decorativo */
-  .folio{
-    position:absolute;font-family:var(--font-mono);font-size:.7rem;
-    letter-spacing:.15em;color:var(--bone-dim);text-transform:uppercase;
-  }
-  .folio.tr{top:6.5rem;right:var(--pad);text-align:right;line-height:1.7}
-  .folio.tr b{color:var(--gold);font-weight:500}
-
-  /* ── SEÇÕES ───────────────────────────────────────────── */
-  section{padding-block:clamp(5rem,13vh,9rem);scroll-margin-top:4rem;position:relative}
-  .rule{height:1px;background:var(--line);width:100%}
-
-  .sec-head{margin-bottom:clamp(2.5rem,6vh,4rem)}
-  .sec-title{
-    font-family:var(--font-display);font-weight:400;
-    font-size:clamp(2.3rem,6vw,4.5rem);line-height:1;letter-spacing:-.02em;
-    font-variation-settings:"opsz" 120,"SOFT" 0;margin-top:1rem;
-  }
-
-  /* grade editorial: rótulo na margem, conteúdo no corpo */
-  .grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(1.5rem,4vw,4rem)}
-  .grid .side .eyebrow{position:sticky;top:5.5rem}
-
-  /* SOBRE */
-  .lead{
-    font-family:var(--font-display);font-weight:300;
-    font-variation-settings:"opsz" 60,"SOFT" 20;
-    font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.45;letter-spacing:-.01em;
-    margin-bottom:2rem;color:var(--bone);
-  }
-  .lead .drop{
-    float:left;font-size:3.4em;line-height:.74;padding:.06em .12em 0 0;
-    color:var(--gold);font-weight:400;font-variation-settings:"opsz" 144;
-  }
-  .body-copy{color:var(--bone-dim);max-width:60ch;margin-bottom:1.2rem}
-  .body-copy strong{color:var(--bone);font-weight:500}
-
-  .facts{
-    margin-top:2.6rem;border-top:1px solid var(--line);
-  }
-  .fact{
-    display:grid;grid-template-columns:8rem 1fr;gap:1rem;
-    padding:.95rem 0;border-bottom:1px solid var(--line);
-    font-family:var(--font-mono);font-size:.85rem;
-  }
-  .fact dt{color:var(--gold);letter-spacing:.05em;text-transform:uppercase;font-size:.72rem;padding-top:.15rem}
-  .fact dd{color:var(--bone)}
-
-  /* TRABALHOS — índice */
-  .index{border-top:1px solid var(--line-2)}
-  .entry{
-    display:grid;grid-template-columns:3.5rem 1fr auto;align-items:baseline;
-    gap:1.5rem;padding:clamp(1.4rem,3.5vh,2.4rem) 0;
-    border-bottom:1px solid var(--line);transition:padding-left .35s ease;
-    position:relative;
-  }
-  .entry::before{
-    content:"";position:absolute;left:-.5rem;top:50%;transform:translateY(-50%);
-    width:3px;height:0;background:var(--gold);transition:height .35s ease;border-radius:2px;
-  }
-  .entry:hover,.entry:focus-visible{padding-left:1.2rem}
-  .entry:hover::before,.entry:focus-visible::before{height:60%}
-  .entry .e-num{font-family:var(--font-mono);font-size:.8rem;color:var(--bone-dim);padding-top:.5rem}
-  .entry:hover .e-num{color:var(--gold)}
-  .e-title{
-    font-family:var(--font-display);font-weight:400;
-    font-size:clamp(1.5rem,3.2vw,2.4rem);line-height:1.08;letter-spacing:-.015em;
-    font-variation-settings:"opsz" 80,"SOFT" 0;transition:font-variation-settings .35s ease;
-  }
-  .entry:hover .e-title{font-variation-settings:"opsz" 80,"SOFT" 50}
-  .e-desc{color:var(--bone-dim);font-size:.92rem;margin-top:.5rem;max-width:48ch}
-  .e-meta{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;text-align:right;padding-top:.6rem}
-  .tag{
-    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--bone);border:1px solid var(--line-2);
-    padding:.25rem .6rem;border-radius:100px;white-space:nowrap;
-  }
-  .e-year{font-family:var(--font-mono);font-size:.8rem;color:var(--bone-dim)}
-  .arrow{transition:transform .35s ease;display:inline-block;color:var(--gold);opacity:0}
-  .entry:hover .arrow{opacity:1;transform:translateX(4px)}
-
-  /* ENSINO */
-  .disc-list{display:flex;flex-direction:column}
-  .disc{
-    display:flex;align-items:baseline;gap:1.2rem;padding:1.1rem 0;
-    border-bottom:1px solid var(--line);
-  }
-  .disc:first-child{border-top:1px solid var(--line)}
-  .disc .d-i{font-family:var(--font-mono);font-size:.75rem;color:var(--gold);min-width:2.5rem}
-  .disc .d-name{
-    font-family:var(--font-display);font-weight:400;
-    font-size:clamp(1.3rem,2.6vw,1.9rem);font-variation-settings:"opsz" 60;letter-spacing:-.01em;
-  }
-
-  /* CONTATO / colofão */
-  .colophon{padding-block:clamp(5rem,14vh,9rem)}
-  .cta-big{
-    font-family:var(--font-display);font-weight:300;
-    font-variation-settings:"opsz" 144,"SOFT" 20;
-    font-size:clamp(2.6rem,9vw,7rem);line-height:.95;letter-spacing:-.025em;
-    margin:1.5rem 0 2.5rem;
-  }
-  .cta-big a{transition:color .3s ease;border-bottom:2px solid var(--line-2)}
-  .cta-big a:hover{color:var(--gold);border-color:var(--gold)}
-  .contacts{
-    display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:2rem;
-    border-top:1px solid var(--line);padding-top:2rem;
-  }
-  .contacts a{
-    font-family:var(--font-mono);font-size:.85rem;letter-spacing:.05em;
-    color:var(--bone-dim);transition:color .25s ease;
-    display:inline-flex;align-items:center;gap:.5rem;
-  }
-  .contacts a:hover{color:var(--gold)}
-  .contacts .lbl{color:var(--gold);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em}
-
-  footer.foot{
-    border-top:1px solid var(--line);padding:2rem var(--pad);
-    display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;
-    font-family:var(--font-mono);font-size:.74rem;color:var(--bone-dim);letter-spacing:.05em;
-  }
-  footer.foot span b{color:var(--gold);font-weight:500}
-
-  /* ── reveal ───────────────────────────────────────────── */
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-
-  /* hero load */
-  .hero .hero-eyebrow,.hero .masthead,.hero .thesis,.hero .hero-foot{
-    opacity:0;transform:translateY(28px);animation:rise .95s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-  .hero .masthead{animation-delay:.12s}
-  .hero .thesis{animation-delay:.28s}
-  .hero .hero-foot{animation-delay:.42s}
-  .folio{opacity:0;animation:fade 1.2s ease .7s forwards}
-  @keyframes rise{to{opacity:1;transform:none}}
-  @keyframes fade{to{opacity:1}}
-
-  /* ── responsivo ───────────────────────────────────────── */
-  @media (max-width:860px){
-    .nav-links{display:none}
-    .nav-toggle{display:block}
-    .grid{grid-template-columns:1fr;gap:1rem}
-    .grid .side .eyebrow{position:static}
-    .folio.tr{display:none}
-    .entry{grid-template-columns:2.2rem 1fr;gap:1rem}
-    .e-meta{grid-column:2;flex-direction:row;align-items:center;justify-content:flex-start;flex-wrap:wrap;margin-top:.7rem;padding-top:0}
-    .arrow{display:none}
-    .fact{grid-template-columns:6.5rem 1fr}
-  }
-
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-    .reveal{opacity:1;transform:none}
-    .hero .hero-eyebrow,.hero .masthead,.hero .thesis,.hero .hero-foot,.folio{opacity:1;transform:none}
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vinicius — Designer &amp; Educador</title>
+  <meta name="description" content="Designer e professor. Design editorial, identidade visual e direção de arte. Maringá, Paraná.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff; --black: #000000;
+      --gray-50: #f5f5f7; --gray-100: #e8e8ed; --gray-300: #86868b; --gray-600: #1d1d1f;
+      --blue: #0071e3; --blue-h: #0077ed; --radius: 14px; --nav-h: 44px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--gray-600); -webkit-font-smoothing: antialiased; }
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(255,255,255,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,.08); display: flex; align-items: center; justify-content: space-between; padding: 0 22px; z-index: 9999; }
+    nav .brand { font-size: 17px; font-weight: 600; letter-spacing: -.4px; color: var(--gray-600); text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul a { font-size: 13px; color: var(--gray-600); text-decoration: none; opacity: .8; transition: opacity .2s; }
+    nav ul a:hover { opacity: 1; }
+    nav .nav-cta { font-size: 13px; color: var(--blue); text-decoration: none; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 80px; background: var(--black); background-image: radial-gradient(ellipse 80% 60% at 50% 40%, #1a1a2e 0%, #000 100%); text-align: center; position: relative; overflow: hidden; }
+    .hero-badge { display: inline-block; font-size: 13px; font-weight: 500; color: var(--blue); letter-spacing: .4px; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(48px, 8vw, 96px); font-weight: 700; line-height: 1.05; letter-spacing: -2px; color: var(--white); max-width: 900px; margin: 0 auto 20px; }
+    .hero p { font-size: clamp(18px, 2.5vw, 24px); font-weight: 300; color: rgba(255,255,255,.7); max-width: 560px; margin: 0 auto 40px; line-height: 1.5; }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; background: var(--blue); color: var(--white); font-size: 15px; font-weight: 500; border-radius: 980px; text-decoration: none; transition: background .2s, transform .15s; border: none; cursor: pointer; }
+    .btn-primary:hover { background: var(--blue-h); transform: scale(1.02); }
+    .btn-ghost { display: inline-flex; align-items: center; justify-content: center; padding: 13px 28px; background: transparent; color: var(--blue); font-size: 15px; font-weight: 500; border-radius: 980px; text-decoration: none; border: 1.5px solid var(--blue); transition: background .2s, color .2s, transform .15s; cursor: pointer; }
+    .btn-ghost:hover { background: var(--blue); color: var(--white); transform: scale(1.02); }
+    .hero-scroll { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: .4; }
+    .hero-scroll span { font-size: 11px; letter-spacing: .5px; color: var(--white); }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+    .hero-scroll svg { animation: bounce 1.6s ease-in-out infinite; }
+    section { position: relative; }
+    .section-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+    .sobre { background: var(--black); padding: 120px 0; text-align: center; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; display: block; }
+    .sobre h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 700; letter-spacing: -1.5px; color: var(--white); line-height: 1.1; max-width: 720px; margin: 0 auto 24px; }
+    .sobre p { font-size: clamp(16px, 2vw, 20px); font-weight: 300; color: rgba(255,255,255,.65); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+    .servicos { background: var(--gray-50); padding: 120px 0; }
+    .servicos-header { text-align: center; margin-bottom: 64px; }
+    .servicos-header h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 700; letter-spacing: -1.2px; color: var(--gray-600); }
+    .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .card { background: var(--white); border-radius: var(--radius); padding: 44px 36px; transition: transform .3s, box-shadow .3s; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.10); }
+    .card-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+    .card-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--white); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .card h3 { font-size: 20px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px; }
+    .card p { font-size: 15px; color: var(--gray-300); line-height: 1.6; }
+    .destaque { background: var(--black); padding: 120px 0; }
+    .destaque-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .destaque-text h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 700; letter-spacing: -1.2px; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+    .destaque-text p { font-size: 17px; font-weight: 300; color: rgba(255,255,255,.65); line-height: 1.7; margin-bottom: 32px; }
+    .destaque-visual { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border-radius: 24px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+    .destaque-visual svg { width: 80px; height: 80px; opacity: .3; fill: none; stroke: var(--white); stroke-width: 1; }
+    .processo { background: var(--white); padding: 120px 0; text-align: center; }
+    .processo-header h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 700; letter-spacing: -1.2px; color: var(--gray-600); margin-bottom: 64px; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
+    .step-num { font-size: 48px; font-weight: 700; color: var(--gray-100); margin-bottom: 16px; }
+    .step h3 { font-size: 18px; font-weight: 600; color: var(--gray-600); margin-bottom: 10px; }
+    .step p { font-size: 15px; color: var(--gray-300); line-height: 1.6; }
+    .contato { background: var(--gray-50); padding: 120px 0; text-align: center; }
+    .contato h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 700; letter-spacing: -1.5px; color: var(--gray-600); margin-bottom: 16px; }
+    .contato > .section-inner > p { font-size: 18px; font-weight: 300; color: var(--gray-300); margin-bottom: 40px; }
+    .contato-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,.1); padding: 40px 22px; text-align: center; }
+    footer p { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.8; }
+    footer a { color: rgba(255,255,255,.6); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    @media (max-width: 768px) { nav ul { display: none; } .destaque-inner { grid-template-columns: 1fr; } .destaque-visual { display: none; } }
+  </style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
-<header class="nav" id="nav">
-  <div class="nav-inner">
-    <!-- EDITE: seu nome / marca -->
-    <a href="#top" class="mark">Vinicius<span>.</span></a>
-    <nav class="nav-links" aria-label="Navegação principal">
-      <a href="#sobre">Sobre</a>
-      <a href="#trabalhos">Trabalhos</a>
-      <a href="#ensino">Ensino</a>
-      <a href="#contato">Contato</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
-  </div>
-</header>
+  <nav>
+    <a class="brand" href="#">Vinicius.</a>
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#processo">Processo</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a class="nav-cta" href="#contato">Fale comigo →</a>
+  </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#sobre"><span class="mnum">01</span>Sobre</a>
-  <a href="#trabalhos"><span class="mnum">02</span>Trabalhos</a>
-  <a href="#ensino"><span class="mnum">03</span>Ensino</a>
-  <a href="#contato"><span class="mnum">04</span>Contato</a>
-</div>
-
-<!-- ══ HERO ══ -->
-<section class="hero" id="top">
-  <!-- folio decorativo (canto) -->
-  <div class="folio tr">
-    Maringá–PR · Brasil<br>
-    Portfólio — <b>Ed. 2026</b>
-  </div>
-
-  <div class="wrap">
-    <p class="eyebrow hero-eyebrow">Designer&nbsp;&amp;&nbsp;Educador · Direção de Arte</p>
-    <!-- EDITE: seu nome (passe o mouse para ver a tipografia reagir) -->
-    <h1 class="masthead">Vinicius</h1>
-    <p class="thesis">Trabalho na fronteira entre <em>design editorial</em>, identidade visual e ensino — onde grade, tipografia e método transformam ideia em página.</p>
-
-    <div class="hero-foot">
-      <span class="status"><span class="dot"></span>Disponível para novos projetos</span>
-      <a href="#trabalhos" class="scroll-cue">Ver trabalhos<span class="line"></span></a>
+  <section class="hero">
+    <span class="hero-badge">Designer &amp; Educador · Maringá, PR</span>
+    <h1>Design que conta histórias.</h1>
+    <p>Identidade visual, design editorial e direção de arte com propósito e precisão.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#servicos">Ver serviços</a>
+      <a class="btn-ghost" href="#contato">Entrar em contato</a>
     </div>
-  </div>
-</section>
+    <div class="hero-scroll" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 1v12M1 7l6 6 6-6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>SCROLL</span>
+    </div>
+  </section>
 
-<!-- ══ SOBRE ══ -->
-<div class="wrap"><div class="rule"></div></div>
-<section id="sobre">
-  <div class="wrap">
-    <div class="grid reveal">
-      <div class="side">
-        <p class="eyebrow"><span class="num">01</span>Sobre</p>
+  <section class="sobre" id="sobre">
+    <div class="section-inner">
+      <span class="eyebrow">Sobre</span>
+      <h2>Design com intenção. Arte com técnica.</h2>
+      <p>Sou designer e professor, apaixonado por transformar ideias complexas em experiências visuais claras e impactantes. Cada projeto é tratado com rigor, estética e atenção ao detalhe.</p>
+    </div>
+  </section>
+
+  <section class="servicos" id="servicos">
+    <div class="section-inner">
+      <div class="servicos-header">
+        <span class="eyebrow">Serviços</span>
+        <h2>O que posso fazer por você.</h2>
       </div>
-      <div class="main">
-        <p class="lead"><span class="drop">S</span>ou designer e professor — e há anos venho construindo identidades visuais, sistemas editoriais e materiais didáticos com a mesma obsessão: clareza.</p>
-        <p class="body-copy">Acredito que bom design é <strong>método tornado visível</strong>, e que a melhor aula é aquela que mostra o processo, não só o resultado. Meu trabalho vai do conceito de marca à direção de arte, passando por grades, tipografia e a produção fina que faz uma peça parecer inevitável.</p>
-        <p class="body-copy">Hoje divido meu tempo entre projetos autorais e a sala de aula na <strong>Unicive</strong>, onde leciono no EAD e desenvolvo conteúdo para diversas disciplinas — frequentemente produzindo material em escala com a ajuda de código.</p>
-
-        <dl class="facts">
-          <div class="fact"><dt>Base</dt><dd>Maringá, Paraná — Brasil</dd></div>
-          <div class="fact"><dt>Foco</dt><dd>Editorial · Branding · Direção de Arte</dd></div>
-          <div class="fact"><dt>Ferramentas</dt><dd>Illustrator · InDesign · Node.js · código</dd></div>
-          <div class="fact"><dt>Ensino</dt><dd>Unicive — Ensino a Distância</dd></div>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ TRABALHOS ══ -->
-<div class="wrap"><div class="rule"></div></div>
-<section id="trabalhos">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow"><span class="num">02</span>Trabalhos · Seleção</p>
-      <h2 class="sec-title">Índice de projetos</h2>
-    </div>
-
-    <!-- ════════════════════════════════════════════════════════════
-         EDITE OS PROJETOS ABAIXO. São exemplos baseados no seu perfil —
-         troque títulos, descrições, tags, anos e o href de cada <a>.
-         ════════════════════════════════════════════════════════════ -->
-    <div class="index reveal">
-      <a class="entry" href="#">
-        <span class="e-num">№ 01</span>
-        <span>
-          <span class="e-title">Sistema editorial de slides</span>
-          <span class="e-desc">Pipeline programático em Node.js para centenas de slides com identidade consistente, grade fixa e QA automatizado.</span>
-        </span>
-        <span class="e-meta"><span class="tag">Editorial · Código</span><span class="e-year">2025 <span class="arrow">→</span></span></span>
-      </a>
-
-      <a class="entry" href="#">
-        <span class="e-num">№ 02</span>
-        <span>
-          <span class="e-title">Identidade visual — [Cliente]</span>
-          <span class="e-desc">Marca, paleta e sistema de aplicações para uma operação que precisava de coerência em todos os pontos de contato.</span>
-        </span>
-        <span class="e-meta"><span class="tag">Branding</span><span class="e-year">2024 <span class="arrow">→</span></span></span>
-      </a>
-
-      <a class="entry" href="#">
-        <span class="e-num">№ 03</span>
-        <span>
-          <span class="e-title">Direção de arte — Coleção</span>
-          <span class="e-desc">Composição, tratamento e montagem de imagem de produto para campanha, do conceito ao arquivo final.</span>
-        </span>
-        <span class="e-meta"><span class="tag">Direção de Arte</span><span class="e-year">2024 <span class="arrow">→</span></span></span>
-      </a>
-
-      <a class="entry" href="#">
-        <span class="e-num">№ 04</span>
-        <span>
-          <span class="e-title">Logo &amp; sistema — Andros</span>
-          <span class="e-desc">Conceitos de marca com integração comemorativa e desdobramentos em SVG para diferentes contextos de uso.</span>
-        </span>
-        <span class="e-meta"><span class="tag">Identidade</span><span class="e-year">2023 <span class="arrow">→</span></span></span>
-      </a>
-
-      <a class="entry" href="#">
-        <span class="e-num">№ 05</span>
-        <span>
-          <span class="e-title">Material didático interativo</span>
-          <span class="e-desc">Conteúdo H5P, bancos de questões e recursos visuais para EAD, traduzindo teoria de design em material aplicável.</span>
-        </span>
-        <span class="e-meta"><span class="tag">Educação</span><span class="e-year">2025 <span class="arrow">→</span></span></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ══ ENSINO ══ -->
-<div class="wrap"><div class="rule"></div></div>
-<section id="ensino">
-  <div class="wrap">
-    <div class="grid">
-      <div class="side reveal">
-        <p class="eyebrow"><span class="num">03</span>Ensino</p>
-        <h2 class="sec-title" style="margin-top:1rem">Na Unicive,<br>no EAD</h2>
-      </div>
-      <div class="main reveal">
-        <p class="body-copy" style="font-size:1.05rem;color:var(--bone);max-width:52ch;margin-bottom:2.4rem">
-          Leciono e produzo conteúdo para o ensino a distância, traduzindo teoria de design em material claro e aplicável. Também desenvolvo recursos no Moodle, bancos de questões e materiais visuais sob a identidade da instituição.
-        </p>
-        <!-- EDITE: suas disciplinas -->
-        <div class="disc-list">
-          <div class="disc"><span class="d-i">A.</span><span class="d-name">Design Digital</span></div>
-          <div class="disc"><span class="d-i">B.</span><span class="d-name">Computação Gráfica Editorial</span></div>
-          <div class="disc"><span class="d-i">C.</span><span class="d-name">Teoria e Composição da Cor</span></div>
-          <div class="disc"><span class="d-i">D.</span><span class="d-name">Branding</span></div>
-          <div class="disc"><span class="d-i">E.</span><span class="d-name">Direção de Arte</span></div>
+      <div class="grid-cards">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Identidade Visual</h3>
+          <p>Criação de marcas com personalidade: logotipos, paletas, tipografia e manual de marca completo.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3>Design Editorial</h3>
+          <p>Diagramação de livros, revistas, catálogos e materiais impressos com excelência tipográfica.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Direção de Arte</h3>
+          <p>Conceituação visual para campanhas e projetos que precisam de coesão estética e narrativa.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Educação em Design</h3>
+          <p>Cursos, mentorias e workshops para quem quer aprender design com profundidade e aplicação real.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ CONTATO ══ -->
-<div class="wrap"><div class="rule"></div></div>
-<section id="contato" class="colophon">
-  <div class="wrap reveal">
-    <p class="eyebrow"><span class="num">04</span>Contato · Colofão</p>
-    <!-- EDITE: troque o e-mail abaixo (no texto e no href mailto:) -->
-    <h2 class="cta-big">Tem um projeto?<br><a href="mailto:vfialho92@gmail.com">Vamos conversar →</a></h2>
-
-    <div class="contacts">
-      <!-- EDITE estes links -->
-      <a href="mailto:vfialho92@gmail.com"><span class="lbl">E-mail</span>vfialho92@gmail.com</a>
-      <a href="#"><span class="lbl">LinkedIn</span>/in/vinicius</a>
-      <a href="#"><span class="lbl">Behance</span>@vinicius</a>
-      <a href="#"><span class="lbl">Instagram</span>@vinicius</a>
+  <section class="destaque" id="destaque">
+    <div class="destaque-inner">
+      <div class="destaque-text">
+        <span class="eyebrow">Filosofia</span>
+        <h2>Menos ruído. Mais significado.</h2>
+        <p>Acredito que o bom design é invisível — ele guia, comunica e emociona sem esforço. Cada decisão visual é tomada com propósito, nunca por acidente.</p>
+        <a class="btn-ghost" href="#contato">Vamos conversar</a>
+      </div>
+      <div class="destaque-visual" aria-hidden="true">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="40" stroke-width="1"/>
+          <ellipse cx="50" cy="50" rx="40" ry="15" stroke-width="1"/>
+          <line x1="10" y1="50" x2="90" y2="50" stroke-width="1"/>
+          <line x1="50" y1="10" x2="50" y2="90" stroke-width="1"/>
+        </svg>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="foot">
-  <span>© 2026 Vinicius · Maringá–PR</span>
-  <span>Feito com <b>cuidado</b> &amp; tipografia</span>
-</footer>
+  <section class="processo" id="processo">
+    <div class="section-inner">
+      <div class="processo-header">
+        <span class="eyebrow">Processo</span>
+        <h2>Como trabalhamos juntos.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Descoberta</h3>
+          <p>Entendo sua marca, público e objetivos antes de criar qualquer coisa.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Conceito</h3>
+          <p>Desenvolvo a direção criativa com referências visuais alinhadas à estratégia.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Criação</h3>
+          <p>Executo o projeto com atenção ao detalhe, iterando com seu feedback.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Entrega</h3>
+          <p>Entrego todos os arquivos organizados e prontos para uso em qualquer mídia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  // nav: fundo ao rolar + link ativo
-  const nav = document.getElementById('nav');
-  const sections = [...document.querySelectorAll('section[id]')];
-  const navLinks = [...document.querySelectorAll('.nav-links a')];
+  <section class="contato" id="contato">
+    <div class="section-inner">
+      <span class="eyebrow">Contato</span>
+      <h2>Pronto para começar?</h2>
+      <p>Vamos criar algo incrível juntos. Entre em contato e vamos conversar sobre o seu projeto.</p>
+      <div class="contato-links">
+        <a class="btn-primary" href="mailto:vinicius@exemplo.com">Enviar e-mail</a>
+        <a class="btn-ghost" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </section>
 
-  const onScroll = () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  };
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
+  <footer>
+    <p>© 2026 Vinicius — Designer &amp; Educador · Maringá, PR<br>Feito com cuidado e café.</p>
+  </footer>
 
-  // link ativo conforme a seção visível
-  const navObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const id = e.target.id;
-        navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href') === '#'+id));
-      }
-    });
-  }, {rootMargin:'-45% 0px -50% 0px'});
-  sections.forEach(s=>navObserver.observe(s));
-
-  // reveal ao rolar
-  const revealObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); revealObserver.unobserve(e.target); }
-    });
-  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
-
-  // menu mobile
-  const toggle = document.getElementById('navToggle');
-  const menu = document.getElementById('mobileMenu');
-  const closeMenu = ()=>{ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); toggle.textContent='Menu'; document.body.style.overflow=''; };
-  toggle.addEventListener('click', ()=>{
-    const open = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true':'false');
-    toggle.textContent = open ? 'Fechar' : 'Menu';
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
-</script>
 </body>
-</html>
+     </html>
