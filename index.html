@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ════════════════════════════════════════════════════════════════════
+     EDITE AQUI: título da aba e descrição do site
+     ════════════════════════════════════════════════════════════════════ -->
+<title>Vinicius — Designer & Educador</title>
+<meta name="description" content="Designer e professor. Design editorial, identidade visual e direção de arte. Maringá, Paraná.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#14110D;          /* fundo: preto quente */
+    --ink-2:#1A150F;        /* superfície elevada  */
+    --bone:#ECE4D6;         /* texto: branco-papel */
+    --bone-dim:#9A8F7E;     /* texto secundário    */
+    --gold:#E0A94F;         /* acento dourado      */
+    --gold-soft:#caa05a;
+    --line:rgba(236,228,214,0.10);
+    --line-2:rgba(236,228,214,0.20);
+    --maxw:1280px;
+    --pad:clamp(1.25rem,5vw,4.5rem);
+    --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+    --font-body:'Archivo',system-ui,-apple-system,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:var(--font-body);
+    font-size:clamp(1rem,0.95rem + 0.2vw,1.1rem);
+    line-height:1.65;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* grão sutil de papel impresso */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--ink)}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+
+  .eyebrow{
+    font-family:var(--font-mono);font-size:.72rem;font-weight:500;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  }
+  .eyebrow .num{color:var(--bone-dim);margin-right:.9em}
+
+  /* ── NAV ──────────────────────────────────────────────── */
+  header.nav{
+    position:fixed;top:0;left:0;width:100%;z-index:100;
+    transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.scrolled{
+    background:rgba(20,17,13,.72);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:1.15rem var(--pad);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .mark{
+    font-family:var(--font-display);font-size:1.35rem;font-weight:500;
+    letter-spacing:-.01em;font-variation-settings:"opsz" 40,"SOFT" 0,"WONK" 0;
+  }
+  .mark span{color:var(--gold)}
+  .nav-links{display:flex;gap:2.1rem;align-items:center}
+  .nav-links a{
+    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;
+    color:var(--bone-dim);transition:color .25s ease;position:relative;
+    text-transform:uppercase;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-5px;height:1px;width:0;
+    background:var(--gold);transition:width .3s ease;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--bone)}
+  .nav-links a.active::after{width:100%}
+
+  .nav-toggle{
+    display:none;background:none;border:none;color:var(--bone);
+    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;
+    text-transform:uppercase;cursor:pointer;padding:.4rem;
+  }
+
+  /* menu mobile */
+  .mobile-menu{
+    position:fixed;inset:0;z-index:99;background:var(--ink);
+    display:flex;flex-direction:column;justify-content:center;gap:1.5rem;
+    padding:var(--pad);transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1);
+  }
+  .mobile-menu.open{transform:translateY(0)}
+  .mobile-menu a{
+    font-family:var(--font-display);font-size:clamp(2.2rem,11vw,3.5rem);
+    font-weight:400;font-variation-settings:"opsz" 90;line-height:1;
+    display:flex;align-items:baseline;gap:1rem;
+  }
+  .mobile-menu a .mnum{font-family:var(--font-mono);font-size:.9rem;color:var(--gold)}
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero{
+    min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    position:relative;padding-block:8rem 3rem;
+  }
+  .hero .wrap{width:100%}
+  .hero-eyebrow{margin-bottom:clamp(1.5rem,4vh,2.5rem)}
+
+  .masthead{
+    font-family:var(--font-display);font-weight:400;
+    font-size:clamp(4.2rem,20vw,17rem);line-height:.86;letter-spacing:-.03em;
+    font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 0,"WONK" 0;
+    transition:font-variation-settings .6s cubic-bezier(.3,0,.2,1);
+    margin-left:-.04em;cursor:default;
+  }
+  .masthead:hover{font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 60,"WONK" 0}
+
+  .thesis{
+    font-family:var(--font-display);font-style:italic;font-weight:300;
+    font-variation-settings:"opsz" 50,"SOFT" 30;
+    font-size:clamp(1.25rem,2.4vw,1.9rem);line-height:1.4;color:var(--bone);
+    max-width:30ch;margin-top:clamp(1.8rem,4vh,2.8rem);
+  }
+  .thesis em{color:var(--gold);font-style:italic}
+
+  .hero-foot{
+    display:flex;flex-wrap:wrap;gap:1.5rem 2.5rem;align-items:center;
+    margin-top:clamp(2.5rem,7vh,4.5rem);
+  }
+  .status{
+    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;
+    display:inline-flex;align-items:center;gap:.6rem;color:var(--bone-dim);
+  }
+  .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 0 rgba(224,169,79,.6);animation:pulse 2.6s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(224,169,79,.5)}
+    70%{box-shadow:0 0 0 9px rgba(224,169,79,0)}
+    100%{box-shadow:0 0 0 0 rgba(224,169,79,0)}
+  }
+  .scroll-cue{
+    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--bone-dim);display:inline-flex;
+    align-items:center;gap:.7rem;
+  }
+  .scroll-cue .line{width:46px;height:1px;background:var(--line-2);position:relative;overflow:hidden}
+  .scroll-cue .line::after{content:"";position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);animation:slide 2.4s ease-in-out infinite}
+  @keyframes slide{0%{transform:translateX(-100%)}50%{transform:translateX(100%)}100%{transform:translateX(100%)}}
+
+  /* folio decorativo */
+  .folio{
+    position:absolute;font-family:var(--font-mono);font-size:.7rem;
+    letter-spacing:.15em;color:var(--bone-dim);text-transform:uppercase;
+  }
+  .folio.tr{top:6.5rem;right:var(--pad);text-align:right;line-height:1.7}
+  .folio.tr b{color:var(--gold);font-weight:500}
+
+  /* ── SEÇÕES ───────────────────────────────────────────── */
+  section{padding-block:clamp(5rem,13vh,9rem);scroll-margin-top:4rem;position:relative}
+  .rule{height:1px;background:var(--line);width:100%}
+
+  .sec-head{margin-bottom:clamp(2.5rem,6vh,4rem)}
+  .sec-title{
+    font-family:var(--font-display);font-weight:400;
+    font-size:clamp(2.3rem,6vw,4.5rem);line-height:1;letter-spacing:-.02em;
+    font-variation-settings:"opsz" 120,"SOFT" 0;margin-top:1rem;
+  }
+
+  /* grade editorial: rótulo na margem, conteúdo no corpo */
+  .grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(1.5rem,4vw,4rem)}
+  .grid .side .eyebrow{position:sticky;top:5.5rem}
+
+  /* SOBRE */
+  .lead{
+    font-family:var(--font-display);font-weight:300;
+    font-variation-settings:"opsz" 60,"SOFT" 20;
+    font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.45;letter-spacing:-.01em;
+    margin-bottom:2rem;color:var(--bone);
+  }
+  .lead .drop{
+    float:left;font-size:3.4em;line-height:.74;padding:.06em .12em 0 0;
+    color:var(--gold);font-weight:400;font-variation-settings:"opsz" 144;
+  }
+  .body-copy{color:var(--bone-dim);max-width:60ch;margin-bottom:1.2rem}
+  .body-copy strong{color:var(--bone);font-weight:500}
+
+  .facts{
+    margin-top:2.6rem;border-top:1px solid var(--line);
+  }
+  .fact{
+    display:grid;grid-template-columns:8rem 1fr;gap:1rem;
+    padding:.95rem 0;border-bottom:1px solid var(--line);
+    font-family:var(--font-mono);font-size:.85rem;
+  }
+  .fact dt{color:var(--gold);letter-spacing:.05em;text-transform:uppercase;font-size:.72rem;padding-top:.15rem}
+  .fact dd{color:var(--bone)}
+
+  /* TRABALHOS — índice */
+  .index{border-top:1px solid var(--line-2)}
+  .entry{
+    display:grid;grid-template-columns:3.5rem 1fr auto;align-items:baseline;
+    gap:1.5rem;padding:clamp(1.4rem,3.5vh,2.4rem) 0;
+    border-bottom:1px solid var(--line);transition:padding-left .35s ease;
+    position:relative;
+  }
+  .entry::before{
+    content:"";position:absolute;left:-.5rem;top:50%;transform:translateY(-50%);
+    width:3px;height:0;background:var(--gold);transition:height .35s ease;border-radius:2px;
+  }
+  .entry:hover,.entry:focus-visible{padding-left:1.2rem}
+  .entry:hover::before,.entry:focus-visible::before{height:60%}
+  .entry .e-num{font-family:var(--font-mono);font-size:.8rem;color:var(--bone-dim);padding-top:.5rem}
+  .entry:hover .e-num{color:var(--gold)}
+  .e-title{
+    font-family:var(--font-display);font-weight:400;
+    font-size:clamp(1.5rem,3.2vw,2.4rem);line-height:1.08;letter-spacing:-.015em;
+    font-variation-settings:"opsz" 80,"SOFT" 0;transition:font-variation-settings .35s ease;
+  }
+  .entry:hover .e-title{font-variation-settings:"opsz" 80,"SOFT" 50}
+  .e-desc{color:var(--bone-dim);font-size:.92rem;margin-top:.5rem;max-width:48ch}
+  .e-meta{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;text-align:right;padding-top:.6rem}
+  .tag{
+    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--bone);border:1px solid var(--line-2);
+    padding:.25rem .6rem;border-radius:100px;white-space:nowrap;
+  }
+  .e-year{font-family:var(--font-mono);font-size:.8rem;color:var(--bone-dim)}
+  .arrow{transition:transform .35s ease;display:inline-block;color:var(--gold);opacity:0}
+  .entry:hover .arrow{opacity:1;transform:translateX(4px)}
+
+  /* ENSINO */
+  .disc-list{display:flex;flex-direction:column}
+  .disc{
+    display:flex;align-items:baseline;gap:1.2rem;padding:1.1rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .disc:first-child{border-top:1px solid var(--line)}
+  .disc .d-i{font-family:var(--font-mono);font-size:.75rem;color:var(--gold);min-width:2.5rem}
+  .disc .d-name{
+    font-family:var(--font-display);font-weight:400;
+    font-size:clamp(1.3rem,2.6vw,1.9rem);font-variation-settings:"opsz" 60;letter-spacing:-.01em;
+  }
+
+  /* CONTATO / colofão */
+  .colophon{padding-block:clamp(5rem,14vh,9rem)}
+  .cta-big{
+    font-family:var(--font-display);font-weight:300;
+    font-variation-settings:"opsz" 144,"SOFT" 20;
+    font-size:clamp(2.6rem,9vw,7rem);line-height:.95;letter-spacing:-.025em;
+    margin:1.5rem 0 2.5rem;
+  }
+  .cta-big a{transition:color .3s ease;border-bottom:2px solid var(--line-2)}
+  .cta-big a:hover{color:var(--gold);border-color:var(--gold)}
+  .contacts{
+    display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:2rem;
+    border-top:1px solid var(--line);padding-top:2rem;
+  }
+  .contacts a{
+    font-family:var(--font-mono);font-size:.85rem;letter-spacing:.05em;
+    color:var(--bone-dim);transition:color .25s ease;
+    display:inline-flex;align-items:center;gap:.5rem;
+  }
+  .contacts a:hover{color:var(--gold)}
+  .contacts .lbl{color:var(--gold);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em}
+
+  footer.foot{
+    border-top:1px solid var(--line);padding:2rem var(--pad);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;
+    font-family:var(--font-mono);font-size:.74rem;color:var(--bone-dim);letter-spacing:.05em;
+  }
+  footer.foot span b{color:var(--gold);font-weight:500}
+
+  /* ── reveal ───────────────────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* hero load */
+  .hero .hero-eyebrow,.hero .masthead,.hero .thesis,.hero .hero-foot{
+    opacity:0;transform:translateY(28px);animation:rise .95s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero .masthead{animation-delay:.12s}
+  .hero .thesis{animation-delay:.28s}
+  .hero .hero-foot{animation-delay:.42s}
+  .folio{opacity:0;animation:fade 1.2s ease .7s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes fade{to{opacity:1}}
+
+  /* ── responsivo ───────────────────────────────────────── */
+  @media (max-width:860px){
+    .nav-links{display:none}
+    .nav-toggle{display:block}
+    .grid{grid-template-columns:1fr;gap:1rem}
+    .grid .side .eyebrow{position:static}
+    .folio.tr{display:none}
+    .entry{grid-template-columns:2.2rem 1fr;gap:1rem}
+    .e-meta{grid-column:2;flex-direction:row;align-items:center;justify-content:flex-start;flex-wrap:wrap;margin-top:.7rem;padding-top:0}
+    .arrow{display:none}
+    .fact{grid-template-columns:6.5rem 1fr}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+    .hero .hero-eyebrow,.hero .masthead,.hero .thesis,.hero .hero-foot,.folio{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <!-- EDITE: seu nome / marca -->
+    <a href="#top" class="mark">Vinicius<span>.</span></a>
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="#sobre">Sobre</a>
+      <a href="#trabalhos">Trabalhos</a>
+      <a href="#ensino">Ensino</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre"><span class="mnum">01</span>Sobre</a>
+  <a href="#trabalhos"><span class="mnum">02</span>Trabalhos</a>
+  <a href="#ensino"><span class="mnum">03</span>Ensino</a>
+  <a href="#contato"><span class="mnum">04</span>Contato</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="top">
+  <!-- folio decorativo (canto) -->
+  <div class="folio tr">
+    Maringá–PR · Brasil<br>
+    Portfólio — <b>Ed. 2026</b>
+  </div>
+
+  <div class="wrap">
+    <p class="eyebrow hero-eyebrow">Designer&nbsp;&amp;&nbsp;Educador · Direção de Arte</p>
+    <!-- EDITE: seu nome (passe o mouse para ver a tipografia reagir) -->
+    <h1 class="masthead">Vinicius</h1>
+    <p class="thesis">Trabalho na fronteira entre <em>design editorial</em>, identidade visual e ensino — onde grade, tipografia e método transformam ideia em página.</p>
+
+    <div class="hero-foot">
+      <span class="status"><span class="dot"></span>Disponível para novos projetos</span>
+      <a href="#trabalhos" class="scroll-cue">Ver trabalhos<span class="line"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOBRE ══ -->
+<div class="wrap"><div class="rule"></div></div>
+<section id="sobre">
+  <div class="wrap">
+    <div class="grid reveal">
+      <div class="side">
+        <p class="eyebrow"><span class="num">01</span>Sobre</p>
+      </div>
+      <div class="main">
+        <p class="lead"><span class="drop">S</span>ou designer e professor — e há anos venho construindo identidades visuais, sistemas editoriais e materiais didáticos com a mesma obsessão: clareza.</p>
+        <p class="body-copy">Acredito que bom design é <strong>método tornado visível</strong>, e que a melhor aula é aquela que mostra o processo, não só o resultado. Meu trabalho vai do conceito de marca à direção de arte, passando por grades, tipografia e a produção fina que faz uma peça parecer inevitável.</p>
+        <p class="body-copy">Hoje divido meu tempo entre projetos autorais e a sala de aula na <strong>Unicive</strong>, onde leciono no EAD e desenvolvo conteúdo para diversas disciplinas — frequentemente produzindo material em escala com a ajuda de código.</p>
+
+        <dl class="facts">
+          <div class="fact"><dt>Base</dt><dd>Maringá, Paraná — Brasil</dd></div>
+          <div class="fact"><dt>Foco</dt><dd>Editorial · Branding · Direção de Arte</dd></div>
+          <div class="fact"><dt>Ferramentas</dt><dd>Illustrator · InDesign · Node.js · código</dd></div>
+          <div class="fact"><dt>Ensino</dt><dd>Unicive — Ensino a Distância</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRABALHOS ══ -->
+<div class="wrap"><div class="rule"></div></div>
+<section id="trabalhos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="num">02</span>Trabalhos · Seleção</p>
+      <h2 class="sec-title">Índice de projetos</h2>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         EDITE OS PROJETOS ABAIXO. São exemplos baseados no seu perfil —
+         troque títulos, descrições, tags, anos e o href de cada <a>.
+         ════════════════════════════════════════════════════════════ -->
+    <div class="index reveal">
+      <a class="entry" href="#">
+        <span class="e-num">№ 01</span>
+        <span>
+          <span class="e-title">Sistema editorial de slides</span>
+          <span class="e-desc">Pipeline programático em Node.js para centenas de slides com identidade consistente, grade fixa e QA automatizado.</span>
+        </span>
+        <span class="e-meta"><span class="tag">Editorial · Código</span><span class="e-year">2025 <span class="arrow">→</span></span></span>
+      </a>
+
+      <a class="entry" href="#">
+        <span class="e-num">№ 02</span>
+        <span>
+          <span class="e-title">Identidade visual — [Cliente]</span>
+          <span class="e-desc">Marca, paleta e sistema de aplicações para uma operação que precisava de coerência em todos os pontos de contato.</span>
+        </span>
+        <span class="e-meta"><span class="tag">Branding</span><span class="e-year">2024 <span class="arrow">→</span></span></span>
+      </a>
+
+      <a class="entry" href="#">
+        <span class="e-num">№ 03</span>
+        <span>
+          <span class="e-title">Direção de arte — Coleção</span>
+          <span class="e-desc">Composição, tratamento e montagem de imagem de produto para campanha, do conceito ao arquivo final.</span>
+        </span>
+        <span class="e-meta"><span class="tag">Direção de Arte</span><span class="e-year">2024 <span class="arrow">→</span></span></span>
+      </a>
+
+      <a class="entry" href="#">
+        <span class="e-num">№ 04</span>
+        <span>
+          <span class="e-title">Logo &amp; sistema — Andros</span>
+          <span class="e-desc">Conceitos de marca com integração comemorativa e desdobramentos em SVG para diferentes contextos de uso.</span>
+        </span>
+        <span class="e-meta"><span class="tag">Identidade</span><span class="e-year">2023 <span class="arrow">→</span></span></span>
+      </a>
+
+      <a class="entry" href="#">
+        <span class="e-num">№ 05</span>
+        <span>
+          <span class="e-title">Material didático interativo</span>
+          <span class="e-desc">Conteúdo H5P, bancos de questões e recursos visuais para EAD, traduzindo teoria de design em material aplicável.</span>
+        </span>
+        <span class="e-meta"><span class="tag">Educação</span><span class="e-year">2025 <span class="arrow">→</span></span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ENSINO ══ -->
+<div class="wrap"><div class="rule"></div></div>
+<section id="ensino">
+  <div class="wrap">
+    <div class="grid">
+      <div class="side reveal">
+        <p class="eyebrow"><span class="num">03</span>Ensino</p>
+        <h2 class="sec-title" style="margin-top:1rem">Na Unicive,<br>no EAD</h2>
+      </div>
+      <div class="main reveal">
+        <p class="body-copy" style="font-size:1.05rem;color:var(--bone);max-width:52ch;margin-bottom:2.4rem">
+          Leciono e produzo conteúdo para o ensino a distância, traduzindo teoria de design em material claro e aplicável. Também desenvolvo recursos no Moodle, bancos de questões e materiais visuais sob a identidade da instituição.
+        </p>
+        <!-- EDITE: suas disciplinas -->
+        <div class="disc-list">
+          <div class="disc"><span class="d-i">A.</span><span class="d-name">Design Digital</span></div>
+          <div class="disc"><span class="d-i">B.</span><span class="d-name">Computação Gráfica Editorial</span></div>
+          <div class="disc"><span class="d-i">C.</span><span class="d-name">Teoria e Composição da Cor</span></div>
+          <div class="disc"><span class="d-i">D.</span><span class="d-name">Branding</span></div>
+          <div class="disc"><span class="d-i">E.</span><span class="d-name">Direção de Arte</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTATO ══ -->
+<div class="wrap"><div class="rule"></div></div>
+<section id="contato" class="colophon">
+  <div class="wrap reveal">
+    <p class="eyebrow"><span class="num">04</span>Contato · Colofão</p>
+    <!-- EDITE: troque o e-mail abaixo (no texto e no href mailto:) -->
+    <h2 class="cta-big">Tem um projeto?<br><a href="mailto:ola@vinicius.design">Vamos conversar →</a></h2>
+
+    <div class="contacts">
+      <!-- EDITE estes links -->
+      <a href="mailto:ola@vinicius.design"><span class="lbl">E-mail</span>ola@vinicius.design</a>
+      <a href="#"><span class="lbl">LinkedIn</span>/in/vinicius</a>
+      <a href="#"><span class="lbl">Behance</span>@vinicius</a>
+      <a href="#"><span class="lbl">Instagram</span>@vinicius</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>© 2026 Vinicius · Maringá–PR</span>
+  <span>Feito com <b>cuidado</b> &amp; tipografia</span>
+</footer>
+
+<script>
+  // nav: fundo ao rolar + link ativo
+  const nav = document.getElementById('nav');
+  const sections = [...document.querySelectorAll('section[id]')];
+  const navLinks = [...document.querySelectorAll('.nav-links a')];
+
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // link ativo conforme a seção visível
+  const navObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id;
+        navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href') === '#'+id));
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(s=>navObserver.observe(s));
+
+  // reveal ao rolar
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); revealObserver.unobserve(e.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+  // menu mobile
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  const closeMenu = ()=>{ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); toggle.textContent='Menu'; document.body.style.overflow=''; };
+  toggle.addEventListener('click', ()=>{
+    const open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true':'false');
+    toggle.textContent = open ? 'Fechar' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+</script>
+</body>
+</html>
